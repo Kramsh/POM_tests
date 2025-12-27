@@ -2,7 +2,15 @@ from selenium.webdriver.common.by import By
 
 
 class ProductPageLocators:
-    
+
+    PRODUCT_UNAVAILABLE = (By.ID, "product_unavailable")
+    PRODUCT_UNAVAILABLE_TEXT = (By.XPATH, "//div[@id='product_unavailable']//h3")
+
+    ADD_ONE_BUTTON = (
+        By.XPATH, 
+        "//a[@title='Add one' and contains(@class, 'js_add_cart_json')]"
+    )
+
     ADD_ONE_BUTTON = (
         By.XPATH, 
         "//a[@title='Add one' and contains(@class, 'js_add_cart_json')]"

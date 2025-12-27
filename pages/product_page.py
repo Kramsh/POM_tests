@@ -1,3 +1,4 @@
+import pytest
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.locators.product_locators import ProductPageLocators
@@ -8,6 +9,19 @@ class ProductPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.base_url = 'http://testshop.qa-practice.com/shop/'
+
+    def is_product_available(self):
+        return self.is_element_hidden(ProductPageLocators.PRODUCT_UNAVAILABLE)
+
+    def skip_if_unavailable(self):
+        if not self.is_product_available():
+            message = "Product is not available for sale"
+            try:
+                unavailable_text = self.get_text(ProductPageLocators.PRODUCT_UNAVAILABLE_TEXT)
+                message = f"Product unavailable: {unavailable_text}"
+            except:
+                pass
+            pytest.skip(message)
 
     def open_product(self, product_slug):
         url = f"{self.base_url}{product_slug}"

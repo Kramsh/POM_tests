@@ -1,6 +1,6 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 
 class BasePage:
@@ -43,3 +43,19 @@ class BasePage:
 
     def get_current_url(self):
         return self.driver.current_url
+
+    def is_visible_fast(self, locator, timeout=2):
+        try:
+            wait = WebDriverWait(self.driver, timeout)
+            wait.until(EC.visibility_of_element_located(locator))
+            return True
+        except TimeoutException:
+            return False
+
+    def is_element_hidden(self, locator):
+        try:
+            element = self.driver.find_element(*locator)
+            classes = element.get_attribute("class") or ""
+            return "d-none" in classes
+        except:
+            return False

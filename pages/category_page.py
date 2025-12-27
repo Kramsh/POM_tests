@@ -2,7 +2,6 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.locators.category_locators import CategoryPageLocators
-from selenium.webdriver.common.by import By
 
 
 class CategoryPage(BasePage):
@@ -47,9 +46,10 @@ class CategoryPage(BasePage):
         return self.get_text(CategoryPageLocators.ADDED_PRODUCT_NAME)
 
     def add_product_to_cart(self):
-        self.hover_over_customizable_desk()
-        self.click_shopping_cart_button()
-        self.click_proceed_to_checkout()
+        button = self.wait.until(
+            EC.element_to_be_clickable(CategoryPageLocators.SHOPPING_CART_BUTTON)
+        )
+        button.click()
 
     def open_sort_dropdown(self):
         self.click(CategoryPageLocators.SORT_DROPDOWN_BUTTON)
@@ -65,3 +65,28 @@ class CategoryPage(BasePage):
         first_product = self.find_element(CategoryPageLocators.FIRST_PRODUCT)
         name_element = first_product.find_element(*CategoryPageLocators.FIRST_PRODUCT_NAME)
         return name_element.text
+
+    def hover_over_first_product(self):
+        element = self.wait.until(
+            EC.visibility_of_element_located(CategoryPageLocators.FIRST_PRODUCT_NAME)
+        )
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        self.wait.until(
+            EC.visibility_of_element_located(CategoryPageLocators.SHOPPING_CART_BUTTON)
+        )
+
+    def add_first_product_to_cart(self):
+        self._first_product_name = self.get_first_product_name()
+        self.hover_over_first_product()
+        self.click_shopping_cart_button()
+        self.click_proceed_to_checkout()
+        self.wait_for_cart_page_loaded()
+
+    def get_expected_product_name(self):
+        return self._first_product_name
+
+    def wait_for_cart_page_loaded(self):
+        self.wait.until(
+            EC.presence_of_element_located(CategoryPageLocators.ADDED_PRODUCT_NAME)
+        )

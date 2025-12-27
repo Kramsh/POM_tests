@@ -5,10 +5,7 @@ class CategoryPageLocators:
     STEEL_CHECKBOX = (By.ID, "1-1")
 
     PRODUCT_LINK = (By.XPATH, "//a[contains(@class, 'text-decoration-none')]")
-    CUSTOMIZABLE_DESK_IMAGE = (
-        By.CSS_SELECTOR, 
-        "a.oe_product_image_link[href='/shop/customizable-desk-9?category=1']"
-    )
+
     FIRST_PRODUCT = (
         By.XPATH,
         "(//td[@class='oe_product']//div[contains(@class,'o_wsale_product_grid_wrapper')])[1]"

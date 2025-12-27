@@ -5,7 +5,7 @@ from pages.locators.cart_locators import CartPageLocators
 
 
 class CartPage(BasePage):
-    
+
     def __init__(self, driver):
         super().__init__(driver)
         self.url = 'http://testshop.qa-practice.com/shop/cart'

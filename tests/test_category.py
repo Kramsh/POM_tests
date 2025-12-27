@@ -12,10 +12,12 @@ def test_choose_steel_checkbox(driver):
 def test_add_to_cart(driver):
     category_page = CategoryPage(driver)
     category_page.open_desks_category()
-    category_page.add_product_to_cart()
+    category_page.add_first_product_to_cart()
 
-    added_product_name = category_page.get_added_product_name()
-    assert "Customizable Desk" in added_product_name
+    expected_name = category_page.get_expected_product_name()
+    actual_name = category_page.get_added_product_name()
+
+    assert expected_name in actual_name
 
 
 def test_sort_by_name(driver):

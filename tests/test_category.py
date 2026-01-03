@@ -26,6 +26,5 @@ def test_sort_by_name(driver):
     category_page.sort_products_by_name()
 
     first_product_name = category_page.get_first_product_name()
-    expected_name = "Acoustic Bloc Screens"
-
+    expected_name = category_page.sort_by_name()
     assert first_product_name == expected_name

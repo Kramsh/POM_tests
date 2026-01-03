@@ -90,3 +90,12 @@ class CategoryPage(BasePage):
         self.wait.until(
             EC.presence_of_element_located(CategoryPageLocators.ADDED_PRODUCT_NAME)
         )
+
+    def sort_by_name(self):
+        products = self.find_elements(CategoryPageLocators.PRODUCTS)
+        products_list = [product.text for product in products]
+        products_list.sort()
+        step = products_list[0]
+        splitted = step.split('\n')
+        result = splitted[0]
+        return result

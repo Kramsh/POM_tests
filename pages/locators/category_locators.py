@@ -10,6 +10,12 @@ class CategoryPageLocators:
         By.XPATH,
         "(//td[@class='oe_product']//div[contains(@class,'o_wsale_product_grid_wrapper')])[1]"
     )
+
+    PRODUCTS = (
+        By.XPATH,
+        "(//td[@class='oe_product']//div[contains(@class,'o_wsale_product_grid_wrapper')])"
+    )
+
     FIRST_PRODUCT_NAME = (By.CSS_SELECTOR, "div.o_wsale_product_information_text h6 a")
 
     SHOPPING_CART_BUTTON = (

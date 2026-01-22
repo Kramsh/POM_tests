@@ -1,4 +1,5 @@
 from pages.product_page import ProductPage
+import pytest
 
 
 def test_add_to_cart_several_items_of_product(driver):
@@ -17,6 +18,7 @@ def test_add_to_cart_several_items_of_product(driver):
     assert product_name == "Office Design Software"
 
 
+@pytest.mark.regression
 def test_redirect_to_terms_and_conditions(driver):
     product_page = ProductPage(driver)
     product_page.open_office_design_software()
@@ -31,6 +33,7 @@ def test_redirect_to_terms_and_conditions(driver):
     assert current_url == expected_url
 
 
+@pytest.mark.smoke
 def test_redirect_to_pinterest(driver):
     product_page = ProductPage(driver)
     product_page.open_office_design_software()
